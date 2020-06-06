@@ -21,9 +21,12 @@ def load_all_csv_from_folder(folder) :
 def main() :
 
     tropes_folder = "tropes"
+    monsters_folder = "monsters"
 
     print("Loading tropes...")
     pd_tropes = load_all_csv_from_folder(tropes_folder)
+    print("Loding monsters...")
+    pd_monsters = load_all_csv_from_folder(monsters_folder)
 
     # let's extract 5 random tropes
     random_indexes = []
@@ -34,9 +37,23 @@ def main() :
 
     tropes = [ pd_tropes.iloc[i].values for i in random_indexes ]
 
-    print("Random tropes:")
+    print("%d random tropes:" % len(tropes))
     for trope in tropes :
         print("\t\"%s\" -> %s" % (trope[0], trope[1]))
+
+    # let's extract 5 random D&D monsters
+    random_indexes = []
+    while len(random_indexes) < 5 :
+        index = random.randint(0, len(pd_monsters))
+        if index not in random_indexes :
+            random_indexes.append(index)
+
+    monsters = [ pd_monsters.iloc[i].values for i in random_indexes ]
+
+    print("%d random monsters:" % len(monsters))
+    for monster in monsters :
+        print("\t\"%s\"" % monster[0])
+
 
     return
 
